@@ -1,23 +1,19 @@
-1. Create a network
-2. Create Mongodb within the network
-
-
 Commands
 
 #for network
-1. docker network create mynetwork
+1. docker network create appnetwork
 
 #For mongodb image and container
-2. docker run --name mongodb -v data:/data/db -d --rm --network mynetwork mongo
+2. docker run --name mongodb -e MONGO_INITDB_ROOT_USERNAME={you want to set username}  -e MONGO_INITDB_ROOT_PASSWORD={you want to set pass} -v data:/data/db -d --rm --network appnetwork mongo
 
 #For Backend image
 3. docker build -t nodeimg .
 
 #For Backend container
-4. docker run --name nodeapp -d --rm -p 80:80 -v "D:/Devops/Docker-Kubernetes/multi-01-starting-setup/backend:/app" -v logsvol:/app/logs -v /app/node_modules nodeimg
+4. docker run --name nodeapp -d --rm -p 80:80 -v /d/Devops/Docker-Kubernetes/multi-01-starting-setup/backend:/app -v logsvol:/app/logs -v /app/node_modules --network appnetwork nodeimg
 
 #For react Image
 5. docker build -t reactimg .
 
 #For react container
-5. docker run --name reactapp -it --rm -p 3000:3000 -v "D:/Devops/Docker-Kubernetes/multi-01-starting-setup/frontend:/app/src" reactimg
+5. docker run --name reactapp -it --rm -p 3000:3000 -v /d/Devops/Docker-Kubernetes/multi-01-starting-setup/frontend:/app/src reactimg

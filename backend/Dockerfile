@@ -1,6 +1,6 @@
 FROM node:14
 
-WORKDIR ./app
+WORKDIR /app
 
 COPY ./package.json ./
 
@@ -13,4 +13,4 @@ ENV PASSWORD=root
 
 EXPOSE 80
 
-CMD [ "npm" , "start" ]
+CMD ["npm","start"]
